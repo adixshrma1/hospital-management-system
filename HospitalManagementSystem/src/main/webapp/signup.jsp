@@ -33,9 +33,13 @@
 							</div>
 							<button type="submit" class="btn col-md-12 bg-success text-white">Register</button>
 							
-							<% if(session.getAttribute("register") == "success") { %>
+							<% if(session.getAttribute("register") == "success") {
+								session.removeAttribute("register");
+							%>
 								<p class="mt-3 text-success">Registered Succcessfully</p>
-							<% } else if(session.getAttribute("register") == "failed") { %>
+							<% } else if(session.getAttribute("register") == "failed") {
+								session.removeAttribute("register");	
+							%>
 								<p class="mt-3 text-danger">Some error has occurred</p>
 							<% } %>
 						</form>

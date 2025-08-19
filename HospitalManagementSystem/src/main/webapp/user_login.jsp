@@ -19,7 +19,7 @@
 					<div class="card-body">
 						
 						<h5 class="card-title text-center">User Login</h5>
-						<form action="" method="post">
+						<form action="UserLogin" method="post">
 							<div class="mb-3">
 								<label for="email">Email Address</label>
 								<input type="email" name="email" class="form-control" required>
@@ -28,7 +28,7 @@
 								<label>Password</label>
 								<input type="password" name="password" class="form-control" required>
 							</div>
-							<button type="button" class="btn col-md-12 bg-success text-white">Login</button>
+							<button type="submit" class="btn col-md-12 bg-success text-white">Login</button>
 						</form>
 						
 						<div class="mt-2">
@@ -36,6 +36,21 @@
 							<a href="signup.jsp" class="text-decoration-none" >create one</a>
 						</div>
 						
+						<!-- for wrong email or password -->
+						<% 
+							if(session.getAttribute("isLogin") == "false"){
+								session.removeAttribute("isLogin");	
+						%>
+							<p class="text-danger">Wrong email or password</p>
+						<% } %>
+						
+						<!-- message after logout -->
+						<%
+							if(session.getAttribute("isLogout") == "true"){
+								session.removeAttribute("isLogout");
+						%>
+							<p class="text-success">Logout Successfully</p>
+						<% } %>
 					</div>
 				</div>
 

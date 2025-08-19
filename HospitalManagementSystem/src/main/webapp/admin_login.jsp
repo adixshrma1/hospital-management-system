@@ -19,7 +19,7 @@
 					<div class="card-body">
 						
 						<h5 class="card-title text-center">Admin Login</h5>
-						<form action="" method="post">
+						<form action="AdminLogin" method="post">
 							<div class="mb-3">
 								<label for="email">Email Address</label>
 								<input type="email" name="email" class="form-control" required>
@@ -28,7 +28,21 @@
 								<label>Password</label>
 								<input type="password" name="password" class="form-control" required>
 							</div>
-							<button type="button" class="btn col-md-12 bg-success text-white">Login</button>
+							<button type="submit" class="btn col-md-12 bg-success text-white">Login</button>
+							
+							<!-- wrong password message -->
+							<% if(session.getAttribute("isLogin") == "false") { 
+								session.removeAttribute("isLogin");
+							%>
+								<p class="text-danger mt-3">Wrong email or password.</p>
+							<% } %>
+							
+							<!-- logut successful message -->
+							<% if(session.getAttribute("adminLogout") == "true"){
+								session.removeAttribute("adminLogout");	
+							%>
+								<p class="text-success mt-3">Logout Successfully</p>
+							<% } %>
 						</form>
 						
 					</div>

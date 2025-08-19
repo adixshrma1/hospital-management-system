@@ -6,6 +6,11 @@ public class User {
 	private String email;
 	private String password;
 	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public User(String fullname, String email, String password) {
 		super();
 		this.fullname = fullname;
