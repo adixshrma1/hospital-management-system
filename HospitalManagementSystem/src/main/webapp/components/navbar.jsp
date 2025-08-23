@@ -18,9 +18,9 @@
 				if (user != null) {
 				%>
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="#">Appointment</a></li>
+					aria-current="page" href="user_appointment.jsp">Appointment</a></li>
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="#">View Appointment</a></li>
+					aria-current="page" href="view_appointment.jsp">View Appointment</a></li>
 
 				<div class="dropdown">
 					<button class="btn btn-success  dropdown-toggle" type="button"
@@ -28,7 +28,7 @@
 						<i class="fa-solid fa-circle-user"></i> <%=user.getFullname()%>
 						</button>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Change Password</a></li>
+						<li><a class="dropdown-item" href="change_password.jsp">Change Password</a></li>
 						<li><a class="dropdown-item" href="UserLogout">Logout</a></li>
 					</ul>
 				</div>
@@ -40,8 +40,6 @@
 					aria-current="page" href="admin_login.jsp">Admin</a></li>
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="doctor_login.jsp">Doctor</a></li>
-				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="#">Appointment</a></li>
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="user_login.jsp"><i
 						class="fa-solid fa-right-to-bracket"></i> User</a></li>

@@ -128,4 +128,118 @@ public class DoctorDao {
 		
 		return b;
 	}
+	
+	public boolean editProfile(Doctor doc) {
+		boolean b = false;
+		
+		try {
+			String sql = "update doctors set name=?, dob=?, qualification=?, specialist=?, mob_number=? where id=? ";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, doc.getFullName());
+			ps.setString(2, doc.getDob());
+			ps.setString(3, doc.getQualification());
+			ps.setString(4, doc.getSpecialist());
+			ps.setString(5, doc.getMobNumber());
+			ps.setInt(6, doc.getId());
+			
+			int i = ps.executeUpdate();
+			
+			if(i == 1) b = true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return b;
+	}
+	
+	public boolean delete(int id) {
+		boolean b = false;
+		
+		try {
+			String sql = "delete from doctors where id=?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			int i = ps.executeUpdate();
+			
+			if(i == 1) b = true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return b;
+	}
+	
+	public Doctor login(String email, String password) {
+		Doctor doc = null;
+		
+		try {
+			
+			String sql = "select * from doctors where email=? and password=?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ps.setString(2, password);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				doc = new Doctor();
+				doc.setId(rs.getInt(1));
+				doc.setFullName(rs.getString(2));
+				doc.setDob(rs.getString(3));
+				doc.setQualification(rs.getString(4));
+				doc.setSpecialist(rs.getString(5));
+				doc.setEmail(rs.getString(6));
+				doc.setMobNumber(rs.getString(7));
+				doc.setPassword(rs.getString(8));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return doc;
+	}
+	
+	public boolean checkPassword(int id, String pass) {
+		boolean b = false;
+		
+		try {
+			String sql = "select * from doctors where id=? and password=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.setString(2, pass);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				b = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return b;
+	}
+	
+	public boolean changePassword(int id, String pass) {
+		boolean b = false;
+		
+		try {
+			String sql = "update doctors set password=? where id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, pass);
+			ps.setInt(2, id);
+			int i = ps.executeUpdate();
+			if(i==1) {
+				b = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return b;
+	}
 }

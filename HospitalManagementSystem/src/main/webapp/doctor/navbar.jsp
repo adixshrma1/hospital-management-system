@@ -1,3 +1,9 @@
+
+<%@page import="com.entity.Doctor"%>
+<% 
+	Doctor doc = (Doctor) session.getAttribute("doctorObj");
+%>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="index.jsp"><i
@@ -13,23 +19,22 @@
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="index.jsp">Home</a></li>
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="add_doctor.jsp">Add doctor</a></li>
-				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="view_doctor.jsp">View doctor</a></li>
-				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="patient.jsp">Patient</a></li>
-
 			</ul>
 
-			<div class="dropdown">
-				<button class="btn btn-light dropdown-toggle" type="button"
-					data-bs-toggle="dropdown" aria-expanded="false">Admin</button>
-				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="../AdminLogout">Logout</a></li>
-				</ul>
-			</div>
-			
-
+			<form class="d-flex">
+				<div class="dropdown">
+					<button class="btn btn-light dropdown-toggle" type="button"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="fa-solid fa-circle-user"></i>
+						<%= doc.getFullName() %>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="edit_profile.jsp">Edit Profile</a></li>
+						<li><a class="dropdown-item" href="../DoctorLogout">Logout</a></li>
+					</ul>
+				</div>
+			</form>
 
 
 		</div>

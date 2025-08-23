@@ -26,7 +26,7 @@ if (session.getAttribute("adminObj") == null) {
 		<!-- grid start -->
 		<div class="row">
 			<!-- left section -->
-			<div class="col-md-4">
+			<div class="col-md-6 offset-md-3">
 				<div class="card shadow">
 					<div class="card-body">
 						<!-- showing a success/failure message -->
@@ -94,66 +94,7 @@ if (session.getAttribute("adminObj") == null) {
 					</div>
 				</div>
 			</div>
-			<!-- right section -->
-			<div class="col-md-8">
-				<div class="card shadow">
-					<div class="card-body">
-						
-						<!-- showing a success/failure message -->
-						<%
-						if (session.getAttribute("isUpdated") == "true") {
-							session.removeAttribute("isUpdated");
-						%>
-						<p class="text-success">doctor updated successfully</p>
-						<%
-						} else if (session.getAttribute("isUpdated") == "false") {
-						session.removeAttribute("isUpdated");
-						%>
-						<p class="text-danger">something went wrong</p>
-						<%
-						}
-						%>
-						
-						<h5 class="card-title text-center">Doctor Details</h5>
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">Name</th>
-									<th scope="col">DOB</th>
-									<th scope="col">Qualifications</th>
-									<th scope="col">Specialist</th>
-									<th scope="col">Email</th>
-									<th scope="col">Mobile No.</th>
-									<th scope="col">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<%
-									DoctorDao docDao = new DoctorDao(DBconnect.getConn());
-									List<Doctor> doctors = docDao.getAll();
-									
-									for(Doctor doc : doctors){
-								%>
-									<tr>
-										<td><%= doc.getFullName() %></td>
-										<td><%= doc.getDob() %></td>
-										<td><%= doc.getQualification() %></td>
-										<td><%= doc.getSpecialist() %></td>
-										<td><%= doc.getEmail() %></td>
-										<td><%= doc.getMobNumber() %></td>
-										<td>
-											<a href="edit_doctor.jsp?id=<%= doc.getId() %>" class="btn btn-sm btn-primary">Edit</a>
-											<a href="#" class="btn btn-sm btn-danger">Delete</a>
-										</td>
-									</tr>
-								<%	} %>
-								
-								
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 		<!-- grid end -->
 	</div>

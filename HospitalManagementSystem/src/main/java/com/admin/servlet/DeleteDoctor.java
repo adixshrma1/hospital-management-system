@@ -10,32 +10,20 @@ import javax.servlet.http.HttpSession;
 
 import com.dao.DoctorDao;
 import com.db.DBconnect;
-import com.entity.Doctor;
 
 
-@WebServlet("/UpdateDoctor")
-public class UpdateDoctor extends HttpServlet {
+@WebServlet("/DeleteDoctor")
+public class DeleteDoctor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String dob = request.getParameter("dob");
-		String qualification = request.getParameter("qualification");
-		String specialist = request.getParameter("specialist");
-		String email = request.getParameter("email");
-		String mobNumber = request.getParameter("mobNumber");
-		String password = request.getParameter("password");
-		
 		int id = Integer.parseInt(request.getParameter("id"));
 		
-		Doctor doc = new Doctor(name, dob, qualification, specialist, email, mobNumber, password);
-		doc.setId(id);
-		
 		DoctorDao dao = new DoctorDao(DBconnect.getConn());
-		
 		HttpSession session = request.getSession();
-		if(dao.update(doc)) {
-			session.setAttribute("successMsg", "doctor updated successfully");
+		
+		if(dao.delete(id)) {
+			session.setAttribute("successMsg", "doctor deleted successfully");
 		} else {
 			session.setAttribute("errorMsg", "something went wrong");
 		}

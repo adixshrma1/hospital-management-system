@@ -36,7 +36,7 @@ public class AddDoctor extends HttpServlet {
 		} else {
 			session.setAttribute("isAdded", "false");
 		}
-		response.sendRedirect("admin/doctor.jsp");
+		response.sendRedirect("admin/add_doctor.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

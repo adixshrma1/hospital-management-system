@@ -18,8 +18,23 @@
 				<div class="card shadow">
 					<div class="card-body">
 						
+						<%
+						if(session.getAttribute("successMsg") != null){ 
+						%>
+							<p class="text-success"><%= session.getAttribute("successMsg") %></p>
+						<%
+							session.removeAttribute("successMsg");
+						}
+						else if(session.getAttribute("errorMsg") != null){
+						%>
+							<p class="text-danger"><%= session.getAttribute("errorMsg") %></p>
+						<%
+						session.removeAttribute("errorMsg");
+						}
+						%>
+						
 						<h5 class="card-title text-center">Doctor Login</h5>
-						<form action="" method="post">
+						<form action="DoctorLogin" method="post">
 							<div class="mb-3">
 								<label for="email">Email Address</label>
 								<input type="email" name="email" class="form-control" required>
@@ -28,7 +43,7 @@
 								<label>Password</label>
 								<input type="password" name="password" class="form-control" required>
 							</div>
-							<button type="button" class="btn col-md-12 bg-success text-white">Login</button>
+							<button type="submit" class="btn col-md-12 bg-success text-white">Login</button>
 						</form>
 						
 					</div>

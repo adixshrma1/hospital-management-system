@@ -1,4 +1,4 @@
-package com.admin.servlet;
+package com.doctor.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,33 +13,26 @@ import com.db.DBconnect;
 import com.entity.Doctor;
 
 
-@WebServlet("/UpdateDoctor")
-public class UpdateDoctor extends HttpServlet {
+@WebServlet("/DoctorLogin")
+public class DoctorLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String dob = request.getParameter("dob");
-		String qualification = request.getParameter("qualification");
-		String specialist = request.getParameter("specialist");
 		String email = request.getParameter("email");
-		String mobNumber = request.getParameter("mobNumber");
 		String password = request.getParameter("password");
 		
-		int id = Integer.parseInt(request.getParameter("id"));
-		
-		Doctor doc = new Doctor(name, dob, qualification, specialist, email, mobNumber, password);
-		doc.setId(id);
-		
 		DoctorDao dao = new DoctorDao(DBconnect.getConn());
+		Doctor doctor = dao.login(email, password);
 		
 		HttpSession session = request.getSession();
-		if(dao.update(doc)) {
-			session.setAttribute("successMsg", "doctor updated successfully");
+		
+		if(doctor != null) {
+			session.setAttribute("doctorObj", doctor);
+			response.sendRedirect("doctor/index.jsp");
 		} else {
-			session.setAttribute("errorMsg", "something went wrong");
+			session.setAttribute("errorMsg", "wrong email or password");
+			response.sendRedirect("doctor_login.jsp");
 		}
-		response.sendRedirect("admin/view_doctor.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

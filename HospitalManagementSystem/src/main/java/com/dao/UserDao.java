@@ -62,5 +62,44 @@ public class UserDao {
 		return user;
 	}
 	
+	public boolean checkPassword(int id, String pass) {
+		boolean b = false;
+		
+		try {
+			String sql = "select * from users where id=? and password=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.setString(2, pass);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				b = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return b;
+	}
+	
+	public boolean changePassword(int id, String pass) {
+		boolean b = false;
+		
+		try {
+			String sql = "update users set password=? where id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, pass);
+			ps.setInt(2, id);
+			int i = ps.executeUpdate();
+			if(i==1) {
+				b = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return b;
+	}
+	
 	
 }

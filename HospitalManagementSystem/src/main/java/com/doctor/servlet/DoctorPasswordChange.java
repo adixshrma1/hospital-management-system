@@ -1,4 +1,4 @@
-package com.admin.servlet;
+package com.doctor.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,36 +10,29 @@ import javax.servlet.http.HttpSession;
 
 import com.dao.DoctorDao;
 import com.db.DBconnect;
-import com.entity.Doctor;
 
-
-@WebServlet("/UpdateDoctor")
-public class UpdateDoctor extends HttpServlet {
+@WebServlet("/DoctorPasswordChange")
+public class DoctorPasswordChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String dob = request.getParameter("dob");
-		String qualification = request.getParameter("qualification");
-		String specialist = request.getParameter("specialist");
-		String email = request.getParameter("email");
-		String mobNumber = request.getParameter("mobNumber");
-		String password = request.getParameter("password");
-		
 		int id = Integer.parseInt(request.getParameter("id"));
-		
-		Doctor doc = new Doctor(name, dob, qualification, specialist, email, mobNumber, password);
-		doc.setId(id);
+		String oldPass = request.getParameter("old_pass");
+		String newPass = request.getParameter("new_pass");
 		
 		DoctorDao dao = new DoctorDao(DBconnect.getConn());
-		
 		HttpSession session = request.getSession();
-		if(dao.update(doc)) {
-			session.setAttribute("successMsg", "doctor updated successfully");
+		
+		if(dao.checkPassword(id, oldPass)) {
+			if(dao.changePassword(id, newPass)) {
+				session.setAttribute("successMsg", "password changed successfully");
+			}else {
+				session.setAttribute("errorMsg", "something went wrong");
+			}
 		} else {
-			session.setAttribute("errorMsg", "something went wrong");
+			session.setAttribute("errorMsg", "old password did not match");
 		}
-		response.sendRedirect("admin/view_doctor.jsp");
+		response.sendRedirect("doctor/edit_profile.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -26,7 +26,7 @@ if (session.getAttribute("adminObj") == null) {
 		<!-- grid start -->
 		<div class="row">
 			<!-- left section -->
-			<div class="col-md-4 offset-md-4">
+			<div class="col-md-6 offset-md-3">
 				<div class="card shadow">
 					<div class="card-body">
 						<!-- showing a success/failure message -->
